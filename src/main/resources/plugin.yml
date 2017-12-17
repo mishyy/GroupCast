@@ -1,0 +1,9 @@
+main: org.mhdvsolutions.groupcast.GroupCastPlugin
+name: GroupCast
+version: @version@
+author: tmux
+depends: [Vault]
+
+commands:
+  groupcast:
+    description: Automagically send all players of a specific group a message.

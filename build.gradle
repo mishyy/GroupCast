@@ -1,0 +1,39 @@
+plugins {
+    id 'idea'
+    id 'org.jetbrains.kotlin.jvm' version '1.2.10'
+    id 'com.github.johnrengelman.shadow' version '2.0.2'
+}
+
+group 'org.mhdvsolutions'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven { url 'http://nexus.hc.to/content/repositories/pub_releases/' }
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+}
+
+dependencies {
+    compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:+'
+    compileOnly 'org.bukkit:bukkit:+'
+    compileOnly 'net.milkbowl.vault:VaultAPI:+'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+processResources {
+    expand(version: version)
+}
+
+shadowJar {
+    baseName = "GroupCast"
+    version = null
+    classifier = null
+}
+
+build.dependsOn shadowJar
