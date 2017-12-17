@@ -1,7 +1,5 @@
-# GroupCast v@version@
+# GroupCast v${version}
 # Made by tmux (https://mhdv-solutions.org)
 
-# %group% :: The group the broadcast is being sent to
-# %player% :: The player sending the broadcast
 # %message% :: The message being sent.
-message-format: '&8[&cBroadcast&8] &7Attention all &f%group%&7 this is a message from your master &f%player%&7. &f%message%'
+message-format: '&8[&cBroadcast&8] &f%message%'

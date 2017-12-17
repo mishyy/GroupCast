@@ -4,6 +4,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '2.0.2'
 }
 
+defaultTasks 'clean', 'copyJar'
+
 group 'org.mhdvsolutions'
 version '1.0.0'
 
@@ -27,7 +29,9 @@ compileTestKotlin {
 }
 
 processResources {
-    expand(version: version)
+    from(sourceSets.main.resources.srcDirs) {
+        expand 'version': project.version
+    }
 }
 
 shadowJar {
@@ -36,4 +40,10 @@ shadowJar {
     classifier = null
 }
 
+task copyJar(type: Copy) {
+    from "build/libs/${shadowJar.baseName}.jar"
+    into '/srv/testserver/plugins/'
+}
+
 build.dependsOn shadowJar
+copyJar.dependsOn build

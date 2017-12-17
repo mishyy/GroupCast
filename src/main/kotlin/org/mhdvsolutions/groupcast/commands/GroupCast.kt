@@ -11,7 +11,7 @@ class GroupCast(private val plugin: GroupCastPlugin) : CommandExecutor {
 
     init {
         val command = Bukkit.getPluginCommand("groupcast")
-        command.aliases = listOf("gcast")
+        command.aliases = mutableListOf("gcast")
         command.permission = "groupcast.use"
         command.permissionMessage = Utils.color("&cYou do not have permission to use this command.")
         command.executor = this
@@ -35,14 +35,11 @@ class GroupCast(private val plugin: GroupCastPlugin) : CommandExecutor {
             return true
         }
 
-        var msgFormat = plugin.config["message-format"].toString()
         val msg = args.copyOfRange(1, args.size).joinToString(" ")
+        val msgFormat = plugin.config["message-format"].toString().replace("%message%", msg)
 
-        Bukkit.getOnlinePlayers().filter { permission.playerInGroup(it, group) }.forEach {
-            msgFormat = msgFormat.replace("%player%", it.name).replace("%group%", group).replace("%message%", msg)
-            Utils.sendMsg(it, msgFormat)
-            Utils.sendMsg(sender, msgFormat)
-        }
+        Utils.sendMsg(sender, msgFormat)
+        Bukkit.getOnlinePlayers().filter { permission.playerInGroup(it, group) }.forEach { Utils.sendMsg(it, msgFormat) }
         return true
     }
 

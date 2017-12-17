@@ -1,6 +1,6 @@
 main: org.mhdvsolutions.groupcast.GroupCastPlugin
 name: GroupCast
-version: @version@
+version: ${version}
 author: tmux
 depends: [Vault]
 
